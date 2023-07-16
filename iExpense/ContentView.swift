@@ -7,23 +7,24 @@
 
 import SwiftUI
 
-class User {
-    var firstName = "Bilbo"
-    var lastName = "Baggins"
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+    
 }
 
 struct ContentView: View {
     
-    @State private var user = User()
+    @State private var user = User(firstName: "Taylor", lastName: "Swift")
     
     var body: some View {
-        VStack {
-            Text("Your name is \(user.firstName) \(user.lastName)")
+        Button("Save User") {
+            let encoder = JSONEncoder()
             
-            TextField("First name", text: $user.firstName)
-            TextField("Last name", text: $user.lastName)
+            if let data = try? encoder.encode(user) {
+                UserDefaults.standard.set(data, forKey: "UserData")
+            }
         }
-        .padding()
     }
 }
 
