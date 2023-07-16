@@ -7,23 +7,16 @@
 
 import SwiftUI
 
-class User {
-    var firstName = "Bilbo"
-    var lastName = "Baggins"
-}
-
 struct ContentView: View {
     
-    @State private var user = User()
+    //@State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+    @AppStorage("tapCount") private var tapCount = 0
     
     var body: some View {
-        VStack {
-            Text("Your name is \(user.firstName) \(user.lastName)")
-            
-            TextField("First name", text: $user.firstName)
-            TextField("Last name", text: $user.lastName)
+        Button("Tap Count: \(tapCount)") {
+            tapCount += 1
+            //UserDefaults.standard.set(tapCount, forKey: "Tap")
         }
-        .padding()
     }
 }
 
